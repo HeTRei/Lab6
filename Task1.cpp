@@ -33,7 +33,7 @@ void promptVariables() // Функція, що отримує від корис�
 }
 void printRandom_m() // Функція, що виводить рандомні значення 'm' цілих чисел в проміжку від 13 до 399 включно
 {
-    for (int total, column = 0; total < m; total += column)
+    for (int total = 0, column = 0; total < m; total += column)
     {
         for (column = 0; column <= k; column++)
             std::cout << Random_m();
@@ -42,7 +42,7 @@ void printRandom_m() // Функція, що виводить рандомні �
 }
 void printRandom_n() // Функція, що виводить випадкові значення 'n' чисел в проміжку від 13 до 399 включно
 {
-    for (int total, column = 0; total < n; total += column)
+    for (int total = 0, column = 0; total < n; total += column)
     {
         for (column = 0; column <= k; column++)
             std::cout << Random_n();
