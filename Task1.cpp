@@ -1,10 +1,26 @@
 #include <iostream>
 #include <random>
+#include <ctime>
+#include <iomanip>
 
 int m, k, n;
+time_t seed_n;
 
-std::default_random_engine Random_m(time(nullptr));
-std::default_random_engine Random_n(time(nullptr));
+int Random_m()
+{
+    std::random_device rd; // Призначення змінній rd значення random_device, а саме ID випадкового пристрою з комп'ютера
+    std::mt19937 generate_m(rd()); // Функція випадкового числа з сідом rd
+    std::uniform_int_distribution<> distribution_m(13, 399); // Визначення лімітів можливих чисел
+    return distribution_m(generate_m);
+}
+double Random_n()
+{
+
+        std::mt19937 generate_n(seed_n); // Функція випадкового числа з сідом, що дорівнює кількості секунд з 1 січня 1970 року +10 після кожної ітерації
+        std::uniform_real_distribution<double> distribution_n(-2.0, 2.0); // Визначення лімітів
+        seed_n += 10;
+        return distribution_n(generate_n);
+}
 void promptVariables() // Функція, що отримує від користувача значення змінних m, k, n
 {
     std::cout << "Введіть значення 'k': ";
@@ -35,23 +51,28 @@ void printRandom_m() // Функція, що виводить рандомні �
 {
     for (int total = 0, column = 0; total < m; total += column)
     {
-        for (column = 0; column <= k; column++)
-            std::cout << Random_m();
+        for (column = 0; column < k; column++)
+            std::cout << Random_m() << " ";
+        std::cout << "\n";
 
     }
 }
-void printRandom_n() // Функція, що виводить випадкові значення 'n' чисел в проміжку від 13 до 399 включно
+void printRandom_n() // Функція, що виводить випадкові значення 'n' чисел в проміжку від -2 до 2 включно
 {
     for (int total = 0, column = 0; total < n; total += column)
     {
-        for (column = 0; column <= k; column++)
-            std::cout << Random_n();
+        for (column = 0; column < k; column++)
+            std::cout << std::fixed << std::setprecision(1) << Random_n() << " ";
+        std::cout << "\n";
     }
 }
 
 int main()
 {
+    std::time(&seed_n);
     std::setlocale (LC_CTYPE, "ua");
     promptVariables();
+    printRandom_m();
+    printRandom_n();
     return 0;
 }
