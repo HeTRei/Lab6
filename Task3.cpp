@@ -41,11 +41,10 @@ void arrayOperations()
     // Ініціалізація масиву, змінної суми, додавання результатів спрацьовування рандомайзера до масиву та їх виведення
     int sumOfPositiveElements = 0;
     int randomNumbersArray[numberOfElements];
-    int* randomNumbersArrayPtr = randomNumbersArray;
-    for (int i = 0; i < numberOfElements; i++)
+    for (int* randomNumbersArrayPtr = randomNumbersArray; *randomNumbersArrayPtr < numberOfElements; randomNumbersArrayPtr++)
     {
         *randomNumbersArrayPtr = randomNumbersGenerator();
-        std::cout << randomNumbersArrayPtr << " ";
+        std::cout << *randomNumbersArrayPtr << " ";
         if (*randomNumbersArrayPtr > 0)
             sumOfPositiveElements += *randomNumbersArrayPtr;
     }
