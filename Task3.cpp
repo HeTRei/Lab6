@@ -41,7 +41,8 @@ void arrayOperations()
     // Ініціалізація масиву, змінної суми, додавання результатів спрацьовування рандомайзера до масиву та їх виведення
     int sumOfPositiveElements = 0;
     int randomNumbersArray[numberOfElements];
-    for (int* randomNumbersArrayPtr = randomNumbersArray; *randomNumbersArrayPtr < numberOfElements; randomNumbersArrayPtr++)
+    int* randomNumbersArrayPtr = randomNumbersArray;
+    for (int i = 0; i < numberOfElements; i++, randomNumbersArrayPtr++)
     {
         *randomNumbersArrayPtr = randomNumbersGenerator();
         std::cout << *randomNumbersArrayPtr << " ";
@@ -50,21 +51,21 @@ void arrayOperations()
     }
     std::cout << "\nСума додатних елементів дорівнює " << sumOfPositiveElements << std::endl;
     // Знаходження максимального та мінімального за модулем елементів
-    int maxByModuleValue = std::abs(randomNumbersArray[0]);
-    int minByModuleValue = std::abs(randomNumbersArray[0]);
+    int maxByModuleValue = std::abs(*randomNumbersArray);
+    int minByModuleValue = std::abs(*randomNumbersArray);
     int maxByModuleIndex = 0;
     int minByModuleIndex = 0;
-    for (int i = 1; i < numberOfElements; i++)
+    for (int* randomNumbersArrayPtr = randomNumbersArray + 1; randomNumbersArrayPtr < randomNumbersArray + numberOfElements; randomNumbersArrayPtr++)
     {
-        if (std::abs(randomNumbersArray[i]) > maxByModuleValue)
+        if (std::abs(*randomNumbersArrayPtr) > maxByModuleValue)
         {
-            maxByModuleValue = std::abs(randomNumbersArray[i]);
-            maxByModuleIndex = i;
+            maxByModuleValue = std::abs(*randomNumbersArrayPtr);
+            maxByModuleIndex = randomNumbersArrayPtr - randomNumbersArray;
         }
-        else if (std::abs(randomNumbersArray[i]) < minByModuleValue)
+        else if (std::abs(*randomNumbersArrayPtr) < minByModuleValue)
         {
-            minByModuleValue = std::abs(randomNumbersArray[i]);
-            minByModuleIndex = i;
+            minByModuleValue = std::abs(*randomNumbersArrayPtr);
+            minByModuleIndex = randomNumbersArrayPtr - randomNumbersArray;
         }
     }
     if (minByModuleIndex == maxByModuleIndex + 1 || maxByModuleIndex == minByModuleIndex + 1)
@@ -74,18 +75,18 @@ void arrayOperations()
     else if (minByModuleIndex < maxByModuleIndex)
     {
         int product = 1;
-        for (int i = minByModuleIndex + 1; i < maxByModuleIndex; i++)
+        for (int* randomNumbersArrayPtr = randomNumbersArray + minByModuleIndex + 1; randomNumbersArrayPtr < randomNumbersArray + maxByModuleIndex; randomNumbersArrayPtr++)
         {
-            product *= randomNumbersArray[i];
+            product *= *randomNumbersArrayPtr;
         }
         std::cout << "Добуток елементів, що знаходяться між найменшим та найбільшим за модулем елементами дорівнює " << product;
     }
     else if (minByModuleIndex > maxByModuleIndex)
     {
         int product = 1;
-        for (int i = maxByModuleIndex + 1; i < minByModuleIndex; i++)
+        for (int* randomNumbersArrayPtr = randomNumbersArray + maxByModuleIndex + 1; randomNumbersArrayPtr < randomNumbersArray + minByModuleIndex; randomNumbersArrayPtr++)
         {
-            product *= randomNumbersArray[i];
+            product *= *randomNumbersArrayPtr;
         }
         std::cout << "Добуток елементів, що знаходяться між найменшим та найбільшим за модулем елементами дорівнює " << product;
     }
