@@ -2,7 +2,8 @@
 #include <random>
 #include <chrono>
 
-int a, b, numberOfElements;
+double a, b;
+int numberOfElements;
 
 void promptValues()
 {
@@ -29,19 +30,19 @@ void promptValues()
         exit (3);
     }
 }
-int randomNumbersGenerator()
+double randomNumbersGenerator()
 {
     auto seed = std::chrono::system_clock::now().time_since_epoch().count();
     std::mt19937 gen(seed);
-    std::uniform_int_distribution<> distribution(a, b);
+    std::uniform_real_distribution<> distribution(a, b);
     return distribution(gen);
 }
 void arrayOperations()
 {
     // Ініціалізація масиву, змінної суми, додавання результатів спрацьовування рандомайзера до масиву та їх виведення
-    int sumOfPositiveElements = 0;
-    int randomNumbersArray[numberOfElements];
-    int* randomNumbersArrayPtr = randomNumbersArray;
+    double sumOfPositiveElements = 0;
+    double randomNumbersArray[numberOfElements];
+    double* randomNumbersArrayPtr = randomNumbersArray;
     for (int i = 0; i < numberOfElements; i++, randomNumbersArrayPtr++)
     {
         *randomNumbersArrayPtr = randomNumbersGenerator();
@@ -51,11 +52,11 @@ void arrayOperations()
     }
     std::cout << "\nСума додатних елементів дорівнює " << sumOfPositiveElements << std::endl;
     // Знаходження максимального та мінімального за модулем елементів
-    int maxByModuleValue = std::abs(*randomNumbersArray);
-    int minByModuleValue = std::abs(*randomNumbersArray);
+    double maxByModuleValue = std::abs(*randomNumbersArray);
+    double minByModuleValue = std::abs(*randomNumbersArray);
     int maxByModuleIndex = 0;
     int minByModuleIndex = 0;
-    for (int* randomNumbersArrayPtr = randomNumbersArray + 1; randomNumbersArrayPtr < randomNumbersArray + numberOfElements; randomNumbersArrayPtr++)
+    for (double* randomNumbersArrayPtr = randomNumbersArray + 1; randomNumbersArrayPtr < randomNumbersArray + numberOfElements; randomNumbersArrayPtr++)
     {
         if (std::abs(*randomNumbersArrayPtr) > maxByModuleValue)
         {
@@ -74,8 +75,8 @@ void arrayOperations()
     }
     else if (minByModuleIndex < maxByModuleIndex)
     {
-        int product = 1;
-        for (int* randomNumbersArrayPtr = randomNumbersArray + minByModuleIndex + 1; randomNumbersArrayPtr < randomNumbersArray + maxByModuleIndex; randomNumbersArrayPtr++)
+        double product = 1;
+        for (double* randomNumbersArrayPtr = randomNumbersArray + minByModuleIndex + 1; randomNumbersArrayPtr < randomNumbersArray + maxByModuleIndex; randomNumbersArrayPtr++)
         {
             product *= *randomNumbersArrayPtr;
         }
@@ -83,8 +84,8 @@ void arrayOperations()
     }
     else if (minByModuleIndex > maxByModuleIndex)
     {
-        int product = 1;
-        for (int* randomNumbersArrayPtr = randomNumbersArray + maxByModuleIndex + 1; randomNumbersArrayPtr < randomNumbersArray + minByModuleIndex; randomNumbersArrayPtr++)
+        double product = 1;
+        for (double* randomNumbersArrayPtr = randomNumbersArray + maxByModuleIndex + 1; randomNumbersArrayPtr < randomNumbersArray + minByModuleIndex; randomNumbersArrayPtr++)
         {
             product *= *randomNumbersArrayPtr;
         }
