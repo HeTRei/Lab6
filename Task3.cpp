@@ -23,7 +23,7 @@ void promptValues()
     }
     std::cout << "Введіть кількість елементів масиву: ";
     std::cin >> numberOfElements;
-    if (std::cin.fail())
+    if (std::cin.fail() || numberOfElements < 1)
     {
         std::cout << "Неправильне значення!";
         exit (3);
